@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/pubilc.css" rel="stylesheet" type="text/css">
+		<style>
+			.margin{width:1000px;margin:0 auto;}
+			#nav .margin{height:50px;display:flex;justify-content:space-between;border-bottom:4px solid #e6e6e6;}
+			#nav .margin .nav-l{position:relative;}
+			#nav .margin .nav-l li{float:left;text-align:center;}
+			#nav .margin a{float:left;display:block;font:12px/50px "";colro:#212429;width:120px;margin-right:35px;}
+			#nav .margin li:first-child{text-align:left;}
+			#nav .margin a:hover{border-bottom:4px solid #212429;}
+			#nav .margin .nav-r{width:200px;height:100%;}
+			#nav .margin .nav-r:hover{border-bottom:4px solid #212429;}
+			#nav .margin .nav-r input{width:100%;height:20px;margin:15px 0;background:url(../img/search.png) no-repeat right;padding-left:5px;border:none;}
+			
+			#nav .margin .nav-l li .menu{position:absolute;top:54px;left:0;width:800px;height:400px;background:#fff;display:none;}
+			#nav .margin .nav-l li .menu .menuSecond{float:left;width:100px;font:12px/24px "";margin:10px;}
+			#nav .margin .nav-l li .menu .menuSecond img{width:32px;height:32px;}
+		</style>
+	</head>
+	<body>
+		<section id="nav">
+			<div class="margin ">
+				<ul class="nav-l clear">
+					<li><a href="#">首页</a></li>
+					<li>
+						<a id="navShop" href="#">商店</a>
+						<div class="menu clear">
+							<div class="menuSecond"><img src="img/menu1.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu2.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu3.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu4.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu5.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu6.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu7.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu8.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu9.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu10.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu11.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu12.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu13.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu14.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu15.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu16.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu17.png"/><p>家居</p></div>
+							<div class="menuSecond"><img src="img/menu18.png"/><p>家居</p></div>
+						</div>
+					</li>
+					<li>
+						<a href="#">杂志</a>
+						<div class="menu clear"></div>
+					</li>
+					<li>
+						<a href="#">分享</a>
+						<div class="menu clear"></div>
+					</li>
+					<li><a href="#">达人</a>	</li>	
+				</ul>
+				<div class="nav-r">
+					<input  type="search" placeholder="search..."/>
+				</div>
+			</div>		
+		</section>
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+<script>
+"use strict";
+	//商店二级菜单样式
+	$(function(){
+		$(".nav-l li").mouseover(function(){
+			$(this).find(".menu").css({display:"block"});
+		});
+		$(".nav-l li").mouseout(function(){
+			$(this).find(".menu").css({display:"none"});
+		});
+	
+	});
+	
+</script>

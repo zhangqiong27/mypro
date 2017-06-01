@@ -5,23 +5,33 @@
 		<title>良仓网页登录页面</title>
 		<link href="css/pubilc.css" rel="stylesheet" type="text/css">
 		<style>
-			*margin{width:268px;margin:0 auto;border:1px solid #545454;}
-			#logo{margin-top:70px;}
+			.margin{width:268px;margin:0 auto;}
+			.margin #logo{display:block;margin:70px auto;}
+			.margin input{height:32px;border:none;font:14px/32px "";color:#212429;margin-bottom:20px;}
+			.margin #phone{width:100%;box-sizing:border-box;background:url(img/login1.png) no-repeat left;padding-left:19px;border-bottom:1px solid #212429;}
+			.margin #test{background:url(img/login2.png) no-repeat left;padding-left:19px;border-bottom:1px solid #212429;}
+			.margin #btn{width:100px;border:1px solid #212429;border-radius:5px;text-align:center;}
+			.margin #auto{height:15px; vertical-align:middle; margin-bottom:1px; margin-top:-1px;}	
+			.margin #login{width:100%;height:45px;text-align:center;background:#212429;color:#fff;border-radius:5px;margin:28px 0;}
+			.margin #more{text-align:center;}
+			.margin #more a{display:block;color:#212429;font-size:14px;}
 		</style>
 	</head>
 	<body>
 		<div class="margin">
-			<img id="logo" src="img/login2.png"/>
-			<input type="text" placeholder="输入手机号码"/><br>
-			<input type="text" placeholder="输入验证码"/>
-			<input type="button" value="获取验证码"/><br>
-			<input type="radio"/>自动登录<br>
-			<input type="submit" value="登录"/><br>
-			<a href="#">更多登录方式&gt;</a>	
+			<img id="logo" src="img/login0.png"/>
+			<input id="phone" type="text" placeholder="输入手机号码"/><br>
+			<input id="test" type="text" placeholder="输入验证码"/>
+			<input id="btn" type="button" value="获取验证码"/><br>
+			<input id="auto" type="radio"/>自动登录<br>
+			<input id="login" type="submit" value="登录"/>
+			<div id="more"><a href="#">更多登录方式  &gt;</a></div>
 		</div>
 	</body>
 </html>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
 <script>
-	var reg = /^1[3,4,5,7,8]\d{9}$/;  //正则验证手机号码
+"use strict";
+	let reg = /^1[3,4,5,7,8]\d{9}$/;  //正则验证手机号码
 	
 </script>
