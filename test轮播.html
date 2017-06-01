@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>轮播效果</title>
+	</head>
+	<style type="text/css">
+		#bannerImgBox{
+			position: relative;
+			width: 1000px;
+			height: 520px;
+			border: 1px solid black;
+			background-color: pink;
+			padding-top:28px;
+		}
+
+	</style>
+	<body>
+		<div id="bannerImgBox">
+		</div>	
+	</body>
+</html>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+	new  Slideshow({
+		boxId:"#bannerImgBox",
+		imgs:["img/b1.jpg","img/b2.jpg","img/b3.jpg","img/b4.jpg","img/b5.jpg","img/b6.jpg"],
+		width:1000,
+		height:457,
+		timeSpace:3000,
+		InOutTime:2000,
+		btnColor:"#e0e0e0",
+		btnHighColor:"#3e4246",
+		btnWidth:20,
+		btnHeight:4,
+		//btnHasOrd:true
+	});
+});
+
+function Slideshow(obj){
+//属性：
+	//一、轮播图整体的属性
+	this.boxId=obj.boxId;	
+	this.imgs=obj.imgs;//图片数组中保存着每张图片的路径
+	this.width =obj.width;
+	this.height =obj.height;
+	//播放速度
+	this.timeSpace=obj.timeSpace;//3s;
+	//滑入滑出图片序号；
+	this.currInOrd =1;
+	this.currOutOrd =0;
+	//大定时器（）
+	this.timer =null;
+	
+	//二、两张图片的切换效果（滑入滑出效果）的属性
+	//滑入滑出效果的时间长度
+	this.InOutTime =obj.InOutTime;//2s
+	
+	//滑入滑出效果
+	this.InOutTimer =null;
+	
+	//三、按钮的属性；
+	this.btnColor =obj.btnColor;//原始颜色
+	this.btnHighColor =obj.btnHighColor;//高亮颜色
+	this.btnWidth =obj.btnWidth;//按钮的宽
+	this.btnHeight =obj.btnHeight;
+	//this.btnHasOrd =obj.btnHasOrd;//按钮上是否有序号；
+	//还可以扩展：按钮的位置是上右下左等等。
+	this.initUI();
+	this.go();
+}
+
+Slideshow.prototype.initUI = function(){
+	//一、创建轮播图所需要的DOM元素
+	//1、所有图片的创建
+	for(let i=0;i<this.imgs.length;i++){
+		let str = "<img src='"+this.imgs[i]+"' style='width:"+this.width+"px;height:"+this.height+"px;position:absolute;z-index:"+(this.imgs.length-i)+";display:none'/>";
+		$(this.boxId).append(str);
+	}
+	$(this.boxId+" img:first").css({"display":"block"});
+	
+	//2、所有按钮的创建
+	let ulliStr = "<ul style='position:absolute;top:516px;z-index:999;margin-left:400px;'>";
+	
+	for(let i=0;i<this.imgs.length;i++){
+		ulliStr +="<li ord='"+(i+1)+"' style='float:left;width:"+this.btnWidth+"px;height:"+this.btnHeight+"px;background-color:"+this.btnColor+";'></li>";
+	}
+	ulliStr +="</ul>";
+	$(this.boxId).append(ulliStr);
+	
+	$(this.boxId+" ul li").mouseover(function(){
+		that.goImg(this.getAttribute("ord"));
+	});
+	
+	//让第一个按钮变成高亮颜色；
+	$(this.boxId+" ul li:first").css({"background-color":this.btnHighColor});
+	
+	var that = this;
+	$(this.boxId).mouseover(function(){		
+		that.stopChange();
+	});
+
+	$(this.boxId).mouseout(function(){
+		that.go();
+	});	
+}
+
+Slideshow.prototype.go = function(){
+	let that = this;
+	this.timer = setInterval(function(){
+		that.goStep();
+	},this.timeSpace);
+}
+
+
+//改变图片。
+Slideshow.prototype.goStep = function(){
+	//1）、改变滑入滑出的图片序号（按照顺序进行变换）
+	this.currInOrd++;//1-6   2,3,4,5,6
+	this.currOutOrd=this.currInOrd-1; //1,2,3,4,5	
+	
+	if(this.currInOrd>this.imgs.length){
+		this.currInOrd=1;
+	}
+	if(this.currOutOrd>this.imgs.length){
+		this.currOutOrd=1;
+	}
+	//2）、滑入滑出效果
+	this.inOut();
+	//3）、改变按钮颜色
+	this.changeBtnColor();
+}
+
+Slideshow.prototype.inOut=function(){
+	$(this.boxId+" img:eq("+(this.currInOrd-1)+")").fadeIn(this.InOutTime);//4
+	$(this.boxId+" img:eq("+(this.currOutOrd-1)+")").fadeOut(this.InOutTime);//3
+	
+	//$(this.boxId+" img:eq("+(this.currInOrd-1)+")").animate({"left":"0px"},500);
+
+	//$(this.boxId+" img:eq("+(this.currOutOrd-1)+")").animate({"left":"-1000px"},500);
+}
+
+Slideshow.prototype.changeBtnColor=function(){
+	$(this.boxId+" ul li:eq("+(this.currInOrd-1)+")")
+	.css("background-color",this.btnHighColor)
+	.siblings().css("background-color",this.btnColor);
+}
+
+Slideshow.prototype.stopChange = function(){	
+	window.clearInterval(this.timer);
+}	
+
+Slideshow.prototype.goImg = function(ord){
+	this.currOutOrd = this.currInOrd;
+	this.currInOrd = ord; 
+	//2）、滑入滑出效果
+	this.inOut();
+	//3）、改变按钮颜色
+	this.changeBtnColor();	
+}
+</script>
