@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<title>良仓网页主页</title>
 		<link href="css/pubilc.css" rel="stylesheet" type="text/css">
-		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<header >
@@ -18,7 +18,7 @@
 					<span>|</span>
 					<a href="#" >消息</a>
 					<span>|</span>
-					<a href="#" >添加优品</a>
+					<a href="#">添加优品</a>
 				</div>
 			</div>			
 		</header>
@@ -82,8 +82,6 @@
 					<li>
 						<a href="#">分享</a>
 						<div class="menu clear">
-							<div class="menuSecond"><a class="menuSecondB" href="#">趣物</a></div>
-							<div class="menuSecond"><a class="menuSecondB" href="#">数码</a></div>
 							<div class="menuSecond"><a class="menuSecondB" href="#">汽车</a></div>
 							<div class="menuSecond"><a class="menuSecondB" href="#">文化</a></div>
 							<div class="menuSecond"><a class="menuSecondB" href="#">时尚</a></div>
@@ -330,6 +328,19 @@
 				</div>
 			</div>
 		</footer>
+		<div id="top">TOP</div>
+		<div id="service">
+			<input type="button" id="sevBtn" value="联系客服"/>
+			<div id="sevTalk">
+				<div class="sevTalkTop">
+					<img src="img/login0.png"/>
+					<p id="sevClose">一</p>
+				</div>
+				<div class="sevTalkCenter"></div>
+				<textarea class="sevTalkBottom" placeholder="点击输入内容"></textarea>
+				<!--<input class="sendBtn" type="button" value="发送"/>-->
+			</div>
+		</div>
 	</body>
 </html>
 
@@ -349,7 +360,6 @@ $(function(){
 		btnHighColor:"#3e4246",
 		btnWidth:20,
 		btnHeight:4,
-		//btnHasOrd:true
 	});
 });
 
@@ -380,8 +390,6 @@ function Slideshow(obj){
 	this.btnHighColor =obj.btnHighColor;//高亮颜色
 	this.btnWidth =obj.btnWidth;//按钮的宽
 	this.btnHeight =obj.btnHeight;
-	//this.btnHasOrd =obj.btnHasOrd;//按钮上是否有序号；
-	//还可以扩展：按钮的位置是上右下左等等。
 	this.initUI();
 	this.go();
 }
@@ -396,7 +404,7 @@ Slideshow.prototype.initUI = function(){
 	$(this.boxId+" img:first").css({"display":"block"});
 	
 	//2、所有按钮的创建
-	let ulliStr = "<ul style='position:absolute;top:516px;z-index:999;margin-left:400px;'>";
+	let ulliStr = "<ul style='position:absolute;top:516px;z-index:600;margin-left:400px;'>";
 	
 	for(let i=0;i<this.imgs.length;i++){
 		ulliStr +="<li ord='"+(i+1)+"' style='float:left;width:"+this.btnWidth+"px;height:"+this.btnHeight+"px;background-color:"+this.btnColor+";'></li>";
@@ -411,7 +419,7 @@ Slideshow.prototype.initUI = function(){
 	//让第一个按钮变成高亮颜色；
 	$(this.boxId+" ul li:first").css({"background-color":this.btnHighColor});
 	
-	var that = this;
+	let that = this;
 	$(this.boxId).mouseover(function(){		
 		that.stopChange();
 	});
@@ -510,6 +518,53 @@ Slideshow.prototype.goImg = function(ord){
 				 $("#nav").css({"position":"relative","left":"0","top":"0"});//当浏览器高度小于nav原高度时去除浮动跟随,定位回到原位置 
 			} 
 		}); 
+	});	
+</script>
+<script>
+	//客服对话框及TOP按钮?????????
+	$(function(){
+		$(window).scroll(function(){
+			//let top_height = $("#top").offset().top;//获取top按键在当前视口的相对偏移量
+			//let this_scrollTop = $(this).scrollTop();//获取匹配元素相对滚动条顶部的偏移
+			//let windoe_height=$(window).height;
+			//let offsetTop=$("#top").offset();
+			let y_height=window.pageYOffset;
+			//if(this_scrollTop>=top_height){$("#top").show(500);}	
+			if(y_height>=200){          
+				$("#top").show(200);
+			}else{
+				$("#top").hide(200);
+			}
+		});
+		//出现滚动条则显示top按钮，点击返回顶部？？？滚动到一定距离后出现top按键
+		$("#top").click(function(){
+			$("html,body").animate({scrollTop:"0px"},500);		
+		});	
+		
+		//对话框弹出、隐藏
+		$("#sevBtn").click(function(){
+			$("#sevTalk").show();
+		});
+		
+		$("#sevClose").click(function(){
+			$("#sevTalk").hide();
+		});
 	});
-	
+</script>		
+<script>
+	//鼠标拖拽对话框
+	window.onload=function(){
+		let sevTalkBox=document.getElementById('sevTalk');
+		sevTalkBox.onmousedown = function(event){
+			let reX = event.offsetX;
+			let reY = event.offsetY;
+			document.onmousemove = function(event){
+				sevTalkBox.style.left = event.clientX - reX +"px";
+				sevTalkBox.style.top = event.clientY - reY + "px";
+			}
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	}
 </script>

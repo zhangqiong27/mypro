@@ -36,7 +36,116 @@
 				</div>
 			</div>		
 		</section>
-		<div class="margin" id="else"></div>
+		<section id="title">
+			<div class="margin">
+				<h4>良仓>家居>[山舍]秋山系列广玉兰托盘</h4>
+			</div>
+		</section>
+		
+		<main>
+			<div class="margin">
+				<div class="main-l">
+					<div class="main-l-t">
+						<div class="goodsPic"></div>
+						
+						<div class="goodsInf">
+							<p><img id="love" src="../img/shop-love.png" />1300</p>
+							<h3>独一无二</h3>
+							<h6>[山舍]秋山系列广玉兰托盘</h6>
+							<b>单价：</b><span>￥2760.00元</span>
+							<div>
+								<img src="img/shop-baoyou.png"/><i>全国包邮</i>
+								<img src="img/shop-zhengpin.png"/><i>正品授权</i>
+							</div>
+							
+						</div>
+					</div>
+					<div class="main-l-b">
+						<img src="img/shop-main-l1.jpg"/>
+						<img src="img/shop-main-l2.jpg"/>
+						<img src="img/shop-main-l3.jpg"/>
+						<img src="img/shop-main-l4.jpg"/>
+						<img src="img/shop-main-l5.jpg"/>
+						<img src="img/shop-main-l6.jpg"/>
+					</div>
+				</div>
+				
+				<div class="main-r">
+					<h5>猜你喜欢</h5>
+					<ul>
+						<li>
+							<img src="img/shop-main-r1.jpg"/>
+							<b>匠心制造黄铜实木便携</b>
+							<p>独一无二</p>
+							<span>￥238.00</span>
+						</li>
+						<li>
+							<img src="img/shop-main-r2.jpg"/>
+							<b>匠心制造黄铜实木便携</b>
+							<p>独一无二</p>
+							<span>￥238.00</span>
+						</li>
+						<li>
+							<img src="img/shop-main-r3.jpg"/>
+							<b>匠心制造黄铜实木便携</b>
+							<p>独一无二</p>
+							<span>￥238.00</span>
+						</li>
+						<li>
+							<img src="img/shop-main-r4.jpg"/>
+							<b>匠心制造黄铜实木便携</b>
+							<p>独一无二</p>
+							<span>￥238.00</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+		
+		
+		<footer>
+			<div class="margin">
+				<ul class="footer-t clear">
+					<li><img src="img/f1.png"/><b>Iphone Android</b></li>
+					<li>
+						<img src="img/f2.png"/>
+						<img src="img/f3.png"/>
+						<img src="img/f4.png"/>
+					</li>
+				</ul>
+				<div class="footer-b">
+					<a href="#">关于良仓</a>
+					<span>|</span>
+					<a href="#">服务协议</a>
+					<span>|</span>
+					<a href="#">隐私保护协议</a>
+					<span>|</span>
+					<a href="#">使用指南</a>
+					<span>|</span>
+					<a href="#">联系我们</a>
+					<span>|</span>
+					<a href="#">友情链接</a>
+					<span>|</span>
+					<a href="#">私信良仓</a>
+					<p>&copy;2013-2015北京良仓文化传播有限公司版权所有</p>
+					<b>公司名称：北京良仓文化传播有限公司</b>
+					<p>公司地址：北京朝阳区</p>
+				</div>
+			</div>
+		</footer>
+		<div id="top">TOP</div>
+		<div id="service">
+			<input type="button" id="sevBtn" value="联系客服"/>
+			<div id="sevTalk">
+				<div class="sevTalkTop">
+					<img src="img/login0.png"/>
+					<p id="sevClose">一</p>
+				</div>
+				<div class="sevTalkCenter"></div>
+				<textarea class="sevTalkBottom" placeholder="点击输入内容"></textarea>
+				<!--<input class="sendBtn" type="button" value="发送"/>-->
+			</div>
+		</div>
 	</body>
 </html>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
@@ -59,4 +168,208 @@
 		}); 
 	});
 	
+</script>
+<script> 
+	//导航栏悬停
+	$(function(){
+		let a = $("#nav").offset().top;//获取nav距离浏览器顶部高度 
+		//绑定浏览器滚动事件 
+		$(window).scroll(function() { 
+			 let obj_height = document.documentElement.scrollTop || document.body.scrollTop; 
+			 //当往下拉的高度超出div的高度时浮动跟随显示在浏览器最顶部 
+			 if(obj_height >=a) { 
+				 let this_width = $("#nav").width(); 
+				 let obj_width = $(window).width();//保证居中用的 
+				 $("#nav").css({"position":"fixed","left":(obj_width-this_width)/2,"top":"0px"}); 
+			} else { 
+				 $("#nav").css({"position":"relative","left":"0","top":"0"});//当浏览器高度小于nav原高度时去除浮动跟随,定位回到原位置 
+			} 
+		}); 
+	});	
+</script>
+<script>
+	//客服对话框及TOP按钮?????????
+	$(function(){
+		$(window).scroll(function(){
+			//let top_height = $("#top").offset().top;//获取top按键在当前视口的相对偏移量
+			//let this_scrollTop = $(this).scrollTop();//获取匹配元素相对滚动条顶部的偏移
+			//let windoe_height=$(window).height;
+			//let offsetTop=$("#top").offset();
+			let y_height=window.pageYOffset;
+			//if(this_scrollTop>=top_height){$("#top").show(500);}	
+			if(y_height>=200){          
+				$("#top").show(200);
+			}else{
+				$("#top").hide(200);
+			}
+		});
+		//出现滚动条则显示top按钮，点击返回顶部？？？滚动到一定距离后出现top按键
+		$("#top").click(function(){
+			$("html,body").animate({scrollTop:"0px"},500);		
+		});	
+		
+		//对话框弹出、隐藏
+		$("#sevBtn").click(function(){
+			$("#sevTalk").show();
+		});
+		
+		$("#sevClose").click(function(){
+			$("#sevTalk").hide();
+		});
+	});
+</script>		
+<script>
+	//鼠标拖拽对话框
+	window.onload=function(){
+		let sevTalkBox=document.getElementById('sevTalk');
+		sevTalkBox.onmousedown = function(event){
+			let reX = event.offsetX;
+			let reY = event.offsetY;
+			document.onmousemove = function(event){
+				sevTalkBox.style.left = event.clientX - reX +"px";
+				sevTalkBox.style.top = event.clientY - reY + "px";
+			}
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	}
+</script>
+<script>
+//淡入淡出banner效果
+"use strict";
+$(function(){
+	new  Slideshow({
+		boxId:"#goodsPic",
+		imgs:["img/shop-main-l1.jpg","img/shop-main-l2.jpg","img/shop-main-l3.jpg","img/shop-main-l4.jpg","img/shop-main-l5.jpg","img/shop-main-l6.jpg"],
+		width:350,
+		height:435,
+		timeSpace:3000,
+		InOutTime:2000,
+		btnColor:"#e0e0e0",
+		btnHighColor:"#3e4246",
+		btnWidth:65,
+		btnHeight:65,
+	});
+});
+
+function Slideshow(obj){
+//属性：
+	//一、轮播图整体的属性
+	this.boxId=obj.boxId;	
+	this.imgs=obj.imgs;//图片数组中保存着每张图片的路径
+	this.width =obj.width;
+	this.height =obj.height;
+	//播放速度
+	this.timeSpace=obj.timeSpace;//3s;
+	//滑入滑出图片序号；
+	this.currInOrd =1;
+	this.currOutOrd =0;
+	//大定时器（）
+	this.timer =null;
+	
+	//二、两张图片的切换效果（滑入滑出效果）的属性
+	//滑入滑出效果的时间长度
+	this.InOutTime =obj.InOutTime;//2s
+	
+	//滑入滑出效果
+	this.InOutTimer =null;
+	
+	//三、按钮的属性；
+	this.btnColor =obj.btnColor;//原始颜色
+	this.btnHighColor =obj.btnHighColor;//高亮颜色
+	this.btnWidth =obj.btnWidth;//按钮的宽
+	this.btnHeight =obj.btnHeight;
+	this.initUI();
+	this.go();
+}
+
+Slideshow.prototype.initUI = function(){
+	//一、创建轮播图所需要的DOM元素
+	//1、所有图片的创建
+	for(let i=0;i<this.imgs.length;i++){
+		let str = "<img src='"+this.imgs[i]+"' style='width:"+this.width+"px;height:"+this.height+"px;position:absolute;z-index:"+(this.imgs.length-i)+";display:none'/>";
+		$(this.boxId).append(str);
+	}
+	$(this.boxId+" img:first").css({"display":"block"});
+	
+	//2、所有按钮的创建
+	let ulliStr = "<ul style='position:absolute;top:400px;z-index:999;margin-left:400px;'>";
+	
+	for(let i=0;i<this.imgs.length;i++){
+		ulliStr +="<li ord='"+(i+1)+"' style='float:left;width:"+this.btnWidth+"px;height:"+this.btnHeight+"px;background-color:"+this.btnColor+";'></li>";
+	}
+	ulliStr +="</ul>";
+	$(this.boxId).append(ulliStr);
+	
+	$(this.boxId+" ul li").mouseover(function(){
+		that.goImg(this.getAttribute("ord"));
+	});
+	
+	//让第一个按钮变成高亮颜色；
+	$(this.boxId+" ul li:first").css({"background-color":this.btnHighColor});
+	
+	let that = this;
+	$(this.boxId).mouseover(function(){		
+		that.stopChange();
+	});
+
+	$(this.boxId).mouseout(function(){
+		that.go();
+	});	
+}
+
+Slideshow.prototype.go = function(){
+	let that = this;
+	this.timer = setInterval(function(){
+		that.goStep();
+	},this.timeSpace);
+}
+
+
+//改变图片。
+Slideshow.prototype.goStep = function(){
+	//1）、改变滑入滑出的图片序号（按照顺序进行变换）
+	this.currInOrd++;//1-6   2,3,4,5,6
+	this.currOutOrd=this.currInOrd-1; //1,2,3,4,5	
+	
+	if(this.currInOrd>this.imgs.length){
+		this.currInOrd=1;
+	}
+	if(this.currOutOrd>this.imgs.length){
+		this.currOutOrd=1;
+	}
+	//2）、滑入滑出效果
+	this.inOut();
+	//3）、改变按钮颜色
+	this.changeBtnColor();
+}
+
+Slideshow.prototype.inOut=function(){
+	$(this.boxId+" img:eq("+(this.currInOrd-1)+")").fadeIn(this.InOutTime);//4
+	$(this.boxId+" img:eq("+(this.currOutOrd-1)+")").fadeOut(this.InOutTime);//3
+	
+	//$(this.boxId+" img:eq("+(this.currInOrd-1)+")").animate({"left":"0px"},500);
+
+	//$(this.boxId+" img:eq("+(this.currOutOrd-1)+")").animate({"left":"-1000px"},500);
+}
+
+Slideshow.prototype.changeBtnColor=function(){
+	$(this.boxId+" ul li:eq("+(this.currInOrd-1)+")")
+	.css("background-color",this.btnHighColor)
+	.siblings().css("background-color",this.btnColor);
+}
+
+Slideshow.prototype.stopChange = function(){	
+	window.clearInterval(this.timer);
+}	
+
+Slideshow.prototype.goImg = function(ord){
+	this.currOutOrd = this.currInOrd;
+	this.currInOrd = ord; 
+	//2）、滑入滑出效果
+	this.inOut();
+	//3）、改变按钮颜色
+	this.changeBtnColor();	
+}
 </script>
