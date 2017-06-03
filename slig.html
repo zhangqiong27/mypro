@@ -11,33 +11,120 @@
 			<img id="logo" src="img/slig1.png"/>
 			<div>
 				<span>手机号&nbsp;</span>
-				<input id="phone" type="text" placeholder="请输入手机号码"/>
+				<input id="userPhone" type="text" name="userPhone" placeholder="请输入手机号码"/>
 			</div>
 			<div>
 				<span>验证码&nbsp;</span>
-				<input id="phone" type="text" placeholder="输入验证码"/>
+				<input id="userMa" type="text"  placeholder="输入验证码"/>
+				<i id="ma1"></i>
+				<input id="ma2" type="button" value="看不清楚" />
 			</div>
 			<div>
 				<span>创建密码</span>
-				<input id="phone" type="text" placeholder="6-20位字符组成，区分大小写"/>
+				<input id="userPsw" type="password" name="userPsw" placeholder="6-20位字符"/>
 			</div>
 			<div>
 				<span>密码确认</span>
-				<input id="phone" type="text" placeholder="确认密码"/>
+				<input id="userPswRe" type="text" placeholder="确认密码"/>
 			</div>
-			<div>
-				<input id="agree" type="radio"/><b>同意</b>
+			<!--<div>
+				<input id="userAgree" type="radio"/>同意
 				<a href="#">同意良仓条款</a>
-			</div>
+			</div>-->
 			<div>
-				<input id="slig" type="text" value="立即注册"/>
+				<input id="success" type="submit" value="立即注册"/>
 			</div>
+			<ul>
+				<li id="phoneMsg">请输入正确的手机号码</li>
+				<li id="maMsg">验证码错误</li>
+				<li id="pswMsg">密码格式错误</li>
+				<li id="PswReMsg">两次密码不一致</li>
+			</ul>
 		</div>
 	</body>
 </html>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
 <script>
 "use strict";
-	let reg = /^1[3,4,5,7,8]\d{9}$/;  //正则验证手机号码
+$(function(){
+	let isTrue=true;
+	//验证手机号码
+	$("#userPhone").blur(function(){
+		let tag1=/^1[35789]\d{9}$/;
+		let $userPhone=$("#userPhone")[0].value;
+		if(tag1.test($userPhone)){
+			isTrue=true;
+			$("#phoneMsg").css("display","none");
+		}else{
+			isTrue=false;
+			$("#phoneMsg").css("display","block");
+		}
+	});
 	
+	//获取验证码
+	let str="";
+	let arrChar=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9'];
+	for(let i=0;i<4;i++){
+		let index=parseInt(Math.random()*arrChar.length);
+		str+=arrChar[index];
+	}
+	$("#ma1").text(str);
+	str="";
+	$("#ma2").click(function(){
+		for(let i=0;i<4;i++){
+			let index1=parseInt(Math.random()*arrChar.length);
+			str+=arrChar[index1];
+		}
+		$("#ma1").text(str);
+		str="";
+	});
+	
+	$("#userMa").blur(function(){
+		if($("#userMa")[0].val==str){
+			isTrue=true;
+			$("#maMsg").css("display","none");
+		}else{
+			isTrue=false;
+			$("#userMa").val="";
+			$("#maMsg").css("display","block");
+		}
+		
+	});
+	
+	//创建密码
+	$("#userPsw").blur(function(){
+	    var tag3=/^\w{8,16}$/;
+	    var arr3=$("#passWordId")[0].value;
+		if(tag3.test(arr3)){
+			istrue=true;
+		   $("#tishi3")[0].style.cssText="display:none";
+		}else{
+			istrue=false;
+			$("#tishi3")[0].style.cssText="display:block";
+		}
+	});
+	$("#passCheckId").blur(function(){
+		var tag5=/^\w{8,16}$/;
+	    var arr3=$("#passWordId")[0].value;
+	    var arr4=$("#passCheckId")[0].value;
+		if(tag5.test(arr4)){
+			if(arr4==arr3){
+				istrue=true;
+				$("#tishi4")[0].style.cssText="display:none";
+			}else {
+				istrue=false;
+				$("#tishi4")[0].style.cssText="display:block";
+			}
+		   	
+		}else{
+			istrue=false;
+			$("#tishi4")[0].style.cssText="display:block";
+			}
+	});
+		
+		
+	
+	
+	
+});	
 </script>
