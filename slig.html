@@ -9,37 +9,36 @@
 	<body>
 		<div class="margin">
 			<img id="logo" src="img/slig1.png"/>
-			<div>
+			<div class="box">
 				<span>手机号&nbsp;</span>
 				<input id="userPhone" type="text" name="userPhone" placeholder="请输入手机号码"/>
+				<span class="check" id="phoneMsg">请输入正确的手机号码</span>
 			</div>
-			<div>
+			<div class="box">
 				<span>验证码&nbsp;</span>
 				<input id="userMa" type="text"  placeholder="输入验证码"/>
+				<span class="check" id="maMsg">验证码错误</span>
 				<i id="ma1"></i>
 				<input id="ma2" type="button" value="看不清楚" />
 			</div>
-			<div>
+			<div class="box">
 				<span>创建密码</span>
 				<input id="userPsw" type="password" name="userPsw" placeholder="6-20位字符"/>
+				<span class="check" id="pswMsg">请输入8-20位字符</span>
+			</div>
+			<div class="box">
+				<span>密码确认</span>
+				<input id="userPswRe" type="password" placeholder="确认密码"/>
+				<span class="check" id="pswReMsg">两次密码不一致</span>
 			</div>
 			<div>
-				<span>密码确认</span>
-				<input id="userPswRe" type="text" placeholder="确认密码"/>
+				<input id="userAgree" type="checkbox" /><b>同意</b>
+				<a  href="#">同意良仓条款</a>
 			</div>
-			<!--<div>
-				<input id="userAgree" type="radio"/>同意
-				<a href="#">同意良仓条款</a>
-			</div>-->
 			<div>
 				<input id="success" type="submit" value="立即注册"/>
 			</div>
-			<ul>
-				<li id="phoneMsg">请输入正确的手机号码</li>
-				<li id="maMsg">验证码错误</li>
-				<li id="pswMsg">密码格式错误</li>
-				<li id="PswReMsg">两次密码不一致</li>
-			</ul>
+			
 		</div>
 	</body>
 </html>
@@ -47,7 +46,7 @@
 <script>
 "use strict";
 $(function(){
-	let isTrue=true;
+	let isTrue=false;
 	//验证手机号码
 	$("#userPhone").blur(function(){
 		let tag1=/^1[35789]\d{9}$/;
@@ -55,6 +54,7 @@ $(function(){
 		if(tag1.test($userPhone)){
 			isTrue=true;
 			$("#phoneMsg").css("display","none");
+			
 		}else{
 			isTrue=false;
 			$("#phoneMsg").css("display","block");
@@ -80,51 +80,83 @@ $(function(){
 	});
 	
 	$("#userMa").blur(function(){
-		if($("#userMa")[0].val==str){
+		let str1=$("#userMa")[0].value;
+		let str2=$("#ma1")[0].innerHTML;
+		if(str1.toLowerCase()==str2.toLowerCase()){
 			isTrue=true;
 			$("#maMsg").css("display","none");
 		}else{
 			isTrue=false;
-			$("#userMa").val="";
 			$("#maMsg").css("display","block");
 		}
-		
 	});
 	
 	//创建密码
 	$("#userPsw").blur(function(){
-	    var tag3=/^\w{8,16}$/;
-	    var arr3=$("#passWordId")[0].value;
-		if(tag3.test(arr3)){
-			istrue=true;
-		   $("#tishi3")[0].style.cssText="display:none";
+	    let tag3=/^\w{8,20}$/;
+	    let $userPsw=$("#userPsw")[0].value;
+		if(tag3.test($userPsw)){
+			isTrue=true;
+		    $("#pswMsg").css("display","none");
 		}else{
-			istrue=false;
-			$("#tishi3")[0].style.cssText="display:block";
+			isTrue=false;
+		    $("#pswMsg").css("display","block");
 		}
 	});
-	$("#passCheckId").blur(function(){
-		var tag5=/^\w{8,16}$/;
-	    var arr3=$("#passWordId")[0].value;
-	    var arr4=$("#passCheckId")[0].value;
-		if(tag5.test(arr4)){
-			if(arr4==arr3){
-				istrue=true;
-				$("#tishi4")[0].style.cssText="display:none";
+	$("#userPswRe").blur(function(){
+		let tag4=/^\w{8,20}$/;
+	    let $userPsw=$("#userPsw")[0].value;
+	    let $userPswRe=$("#userPswRe")[0].value;
+		if(tag4.test($userPswRe)){
+			if($userPswRe==$userPsw){
+				isTrue=true;
+				$("#pswReMsg").css("display","none");
 			}else {
-				istrue=false;
-				$("#tishi4")[0].style.cssText="display:block";
+				isTrue=false;
+				$("#pswReMsg").css("display","block");
 			}
 		   	
 		}else{
-			istrue=false;
-			$("#tishi4")[0].style.cssText="display:block";
+			isTrue=false;
+			$("#pswReMsg").css("display","block");
 			}
 	});
-		
-		
 	
+	//输入正确后，成功注册，保存新用户数据（手机和密码）到数据库
 	
-	
+	$("#success").click(function(){
+		if(isTrue==true){
+			let userPhone= $("#userPhone")[0].value;
+			let userPsw=$("#userPsw")[0].value;
+			/*let xml=new XMLHttpRequest();
+			xml.open("post","../php/slig.php","true");
+			let postStr="userTel="+userTel+"&userName="+userName+"&userPass="+userPass;
+			xml.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			xml.onreadystatechange=function(){
+				if(xml.readyState==4 && xml.status==200){
+					
+				}
+			}
+			xml.send(postStr);
+			*/
+		$.post("php/slig.php",{userPhone:$("#userPhone")[0].value,userPsw:$("#userPsw")[0].value},function(data){
+			if(data=="true"){
+				//注册成功,跳到主页location.href="index.html";alert("欢迎进入首页");
+				//存cookie
+				window.location.href="home.html";
+			}else{
+				//注册失败
+				alert("亲，注册失败，用户名或者密码错误");
+			}
+		});	
+		/*保存cookie
+			let d=new Date();
+			d.setDate(d.getDate()+5);
+			document.cookie="userName="+encodeURIComponent(userName)+";expires="+d.toGMTString();
+			document.cookie="userPass="+encodeURIComponent(userPass)+";expires="+d.toGMTString();
+			window.location="home.html";
+			*/
+		}	
+	});				
 });	
 </script>

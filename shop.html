@@ -46,18 +46,48 @@
 			<div class="margin">
 				<div class="main-l">
 					<div class="main-l-t">
-						<div class="goodsPic"></div>
+						<div class="goodsPic">
+							
+							
+							
+							
+							
+							
+							
+						</div>
 						
 						<div class="goodsInf">
-							<p><img id="love" src="../img/shop-love.png" />1300</p>
-							<h3>独一无二</h3>
-							<h6>[山舍]秋山系列广玉兰托盘</h6>
-							<b>单价：</b><span>￥2760.00元</span>
-							<div>
-								<img src="img/shop-baoyou.png"/><i>全国包邮</i>
-								<img src="img/shop-zhengpin.png"/><i>正品授权</i>
+							<div class="goodsInf-t">
+								<p><img id="love" src="img/shop-love.png" /><span>1300</span></p>
+								<h3>独一无二</h3>
+								<h6>[山舍]秋山系列广玉兰托盘</h6>
 							</div>
-							
+							<ul class="goodsInf-c">
+								<li>
+									<b class="zuo">单价：</b>
+									<span>￥276.00元</span>
+								</li>
+								<li>
+									<img src="img/shop-baoyou.png"/><i>全国包邮</i>
+									<img src="img/shop-zhengpin.png"/><i>正品授权</i>
+								</li>
+								<li>
+									<b class="zuo">总价：</b>
+									<span id="count">276.00</span>元
+								</li>
+								<li>
+									<b class="zuo">数量：</b>
+									<img id="addBtn" src="img/shop-jia.png"/>
+									<span id="goodsNum">1</span>
+									<img id="cutBtn" src="img/shop-jian.png" />
+								</li>
+							</ul>
+							<div class="goodsInf-b">
+								<input id="goodsChe" type="button" value="购物车"/>
+								<input id="goodsShall" type="button" value="分享" />
+								<img id="goodsChePic" src="img/shop-che.png" />
+								<img id="goodsShallPic" src="img/shop-shall.png" />
+							</div>
 						</div>
 					</div>
 					<div class="main-l-b">
@@ -148,6 +178,7 @@
 		</div>
 	</body>
 </html>
+
 <script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
 <script> 
 "use strict";
@@ -236,140 +267,18 @@
 	}
 </script>
 <script>
-//淡入淡出banner效果
-"use strict";
-$(function(){
-	new  Slideshow({
-		boxId:"#goodsPic",
-		imgs:["img/shop-main-l1.jpg","img/shop-main-l2.jpg","img/shop-main-l3.jpg","img/shop-main-l4.jpg","img/shop-main-l5.jpg","img/shop-main-l6.jpg"],
-		width:350,
-		height:435,
-		timeSpace:3000,
-		InOutTime:2000,
-		btnColor:"#e0e0e0",
-		btnHighColor:"#3e4246",
-		btnWidth:65,
-		btnHeight:65,
-	});
-});
-
-function Slideshow(obj){
-//属性：
-	//一、轮播图整体的属性
-	this.boxId=obj.boxId;	
-	this.imgs=obj.imgs;//图片数组中保存着每张图片的路径
-	this.width =obj.width;
-	this.height =obj.height;
-	//播放速度
-	this.timeSpace=obj.timeSpace;//3s;
-	//滑入滑出图片序号；
-	this.currInOrd =1;
-	this.currOutOrd =0;
-	//大定时器（）
-	this.timer =null;
-	
-	//二、两张图片的切换效果（滑入滑出效果）的属性
-	//滑入滑出效果的时间长度
-	this.InOutTime =obj.InOutTime;//2s
-	
-	//滑入滑出效果
-	this.InOutTimer =null;
-	
-	//三、按钮的属性；
-	this.btnColor =obj.btnColor;//原始颜色
-	this.btnHighColor =obj.btnHighColor;//高亮颜色
-	this.btnWidth =obj.btnWidth;//按钮的宽
-	this.btnHeight =obj.btnHeight;
-	this.initUI();
-	this.go();
-}
-
-Slideshow.prototype.initUI = function(){
-	//一、创建轮播图所需要的DOM元素
-	//1、所有图片的创建
-	for(let i=0;i<this.imgs.length;i++){
-		let str = "<img src='"+this.imgs[i]+"' style='width:"+this.width+"px;height:"+this.height+"px;position:absolute;z-index:"+(this.imgs.length-i)+";display:none'/>";
-		$(this.boxId).append(str);
-	}
-	$(this.boxId+" img:first").css({"display":"block"});
-	
-	//2、所有按钮的创建
-	let ulliStr = "<ul style='position:absolute;top:400px;z-index:999;margin-left:400px;'>";
-	
-	for(let i=0;i<this.imgs.length;i++){
-		ulliStr +="<li ord='"+(i+1)+"' style='float:left;width:"+this.btnWidth+"px;height:"+this.btnHeight+"px;background-color:"+this.btnColor+";'></li>";
-	}
-	ulliStr +="</ul>";
-	$(this.boxId).append(ulliStr);
-	
-	$(this.boxId+" ul li").mouseover(function(){
-		that.goImg(this.getAttribute("ord"));
+	"use strict";
+	$(function(){
+		$("#addBtn").click(function(){
+			//1、修改数量
+			let $goodsNum=$("#goodsNum").val();
+			$goodsNum++;
+			//2、修改金额(单价*数量)
+			let price = 275;
+			let num=$goodsNum;
+			$("#count")[0].innerHTML= price*num;
 	});
 	
-	//让第一个按钮变成高亮颜色；
-	$(this.boxId+" ul li:first").css({"background-color":this.btnHighColor});
-	
-	let that = this;
-	$(this.boxId).mouseover(function(){		
-		that.stopChange();
-	});
-
-	$(this.boxId).mouseout(function(){
-		that.go();
-	});	
-}
-
-Slideshow.prototype.go = function(){
-	let that = this;
-	this.timer = setInterval(function(){
-		that.goStep();
-	},this.timeSpace);
-}
-
-
-//改变图片。
-Slideshow.prototype.goStep = function(){
-	//1）、改变滑入滑出的图片序号（按照顺序进行变换）
-	this.currInOrd++;//1-6   2,3,4,5,6
-	this.currOutOrd=this.currInOrd-1; //1,2,3,4,5	
-	
-	if(this.currInOrd>this.imgs.length){
-		this.currInOrd=1;
-	}
-	if(this.currOutOrd>this.imgs.length){
-		this.currOutOrd=1;
-	}
-	//2）、滑入滑出效果
-	this.inOut();
-	//3）、改变按钮颜色
-	this.changeBtnColor();
-}
-
-Slideshow.prototype.inOut=function(){
-	$(this.boxId+" img:eq("+(this.currInOrd-1)+")").fadeIn(this.InOutTime);//4
-	$(this.boxId+" img:eq("+(this.currOutOrd-1)+")").fadeOut(this.InOutTime);//3
-	
-	//$(this.boxId+" img:eq("+(this.currInOrd-1)+")").animate({"left":"0px"},500);
-
-	//$(this.boxId+" img:eq("+(this.currOutOrd-1)+")").animate({"left":"-1000px"},500);
-}
-
-Slideshow.prototype.changeBtnColor=function(){
-	$(this.boxId+" ul li:eq("+(this.currInOrd-1)+")")
-	.css("background-color",this.btnHighColor)
-	.siblings().css("background-color",this.btnColor);
-}
-
-Slideshow.prototype.stopChange = function(){	
-	window.clearInterval(this.timer);
-}	
-
-Slideshow.prototype.goImg = function(ord){
-	this.currOutOrd = this.currInOrd;
-	this.currInOrd = ord; 
-	//2）、滑入滑出效果
-	this.inOut();
-	//3）、改变按钮颜色
-	this.changeBtnColor();	
-}
 </script>
+	
+
